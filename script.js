@@ -1,3 +1,7 @@
+window.allHorizontal = true;
+window.UnbxdSiteName = 'ss-unbxd-prod-bevilles-com-au13551623906010';
+window.UnbxdApiKey = 'd59fddd93d4e871798731a7d2374ca13';
+
 !(function (e) {
   var t = {};
 
@@ -550,7 +554,19 @@
             },
             {
               key: 'handleWidgetRenderingVertical',
-              value: function () {},
+              value: function () {
+                if (this.widget3) {
+                  var widget3Data = this.recommendationsResponse.widget3;
+                  var widget3Heading = widget3Data.widgetTitle;
+                  var widget3Recommendations = widget3Data.recommendations;
+                  this.renderWidgetDataHorizontal(
+                    this.widget3,
+                    3,
+                    widget3Recommendations,
+                    widget3Heading
+                  );
+                }
+              },
             },
             {
               key: 'handleWidgetRendering',
@@ -566,17 +582,6 @@
                     i = n.widgetTitle,
                     o = n.recommendations;
                   this.renderWidgetDataHorizontal(this.widget2, 2, o, i);
-                }
-                if (this.widget3) {
-                  var widget3Data = this.recommendationsResponse.widget3;
-                  var widget3Heading = widget3Data.widgetTitle;
-                  var widget3Recommendations = widget3Data.recommendations;
-                  this.renderWidgetDataHorizontal(
-                    this.widget3,
-                    3,
-                    widget3Recommendations,
-                    widget3Heading
-                  );
                 }
               },
             },
@@ -1751,6 +1756,42 @@
               }));
           }
 
+          function N() {
+            if (p) {
+              var e = k.widget3,
+                t = e.widgetTitle,
+                r = e.recommendations;
+              (n = p),
+                (i = 3),
+                (s = r),
+                (c = t),
+                (u = b.products.max || b.products.max_products),
+                (f = n),
+                (m = a),
+                s.length &&
+                  (u < s.length && (s = s.splice(0, u)),
+                  _unbxd_generateRexContent({
+                    template: P,
+                    targetDOMElementId: f,
+                    recommendations: s,
+                    heading: c,
+                    rexConsoleConfigs: b,
+                    assets: w,
+                    maxProducts: u,
+                    clickHandler: m,
+                    eventQueue: d,
+                    dataParser: l,
+                    widgetNum: i,
+                    pageType: o,
+                    reqId: O,
+                    isVertical: !0,
+                    sliderClass: '_unbxd_recs-vertical-slider',
+                    compressedStyle: void 0,
+                  }));
+            }
+            var n, i, s, c, u, f, m;
+          }
+
           function W(e, t) {
             if (e) throw new Error('Failed to fetch templates');
             (I = t),
@@ -1767,13 +1808,20 @@
                     s = i.recommendations;
                   R(u, 2, s, o);
                 }
-                if (p) {
+                if (p && window.allHorizontal) {
                   var ii = k.widget3,
                     o = ii.widgetTitle,
                     s = ii.recommendations;
                   R(p, 2, s, o);
                 }
               })();
+          }
+
+          function j(e, t) {
+            if (!window.allHorizontal) {
+              if (e) throw new Error('Failed to fetch templates');
+              (P = t), N();
+            }
           }
           (h += '&uid=' + m),
             Object(x.c)(h, !0, function (e, t, r) {
@@ -1789,52 +1837,18 @@
                       'script url not found for horizontal template'
                     );
               }
+              if ((P = k.template.vertical)) {
+                (b = P.conf), (w = b.assets);
+                var i = P.scriptUrl;
+                i
+                  ? Object(x.c)(i, !1, j)
+                  : console.warn('script url not found for vertical template');
+              }
             });
         });
     })(window);
   },
 ]);
-window.UnbxdSiteName = 'ss-unbxd-prod-bevilles-com-au13551623906010';
-window.UnbxdApiKey = 'd59fddd93d4e871798731a7d2374ca13';
-/*
-getUnbxdRecommendations.prototype.handleWidgetRenderingVertical =
-  function () {};
-getUnbxdRecommendations.prototype.handleWidgetRendering = function () {
-  if (this.widget1) {
-    var widget1Data = this.recommendationsResponse.widget1;
-    var widget1Heading = widget1Data.widgetTitle;
-    var widget1Recommendations = widget1Data.recommendations;
-    this.renderWidgetDataHorizontal(
-      this.widget1,
-      1,
-      widget1Recommendations,
-      widget1Heading
-    );
-  }
-  if (this.widget2) {
-    var widget2Data = this.recommendationsResponse.widget2;
-    var widget2Heading = widget2Data.widgetTitle;
-    var widget2Recommendations = widget2Data.recommendations;
-    this.renderWidgetDataHorizontal(
-      this.widget2,
-      2,
-      widget2Recommendations,
-      widget2Heading
-    );
-  }
-  if (this.widget3) {
-    var widget3Data = this.recommendationsResponse.widget3;
-    var widget3Heading = widget3Data.widgetTitle;
-    var widget3Recommendations = widget3Data.recommendations;
-    this.renderWidgetDataHorizontal(
-      this.widget3,
-      3,
-      widget3Recommendations,
-      widget3Heading
-    );
-  }
-};
-*/
 document.addEventListener('DOMContentLoaded', () => {
   window._unbxd_getRecommendations({
     widgets: {
